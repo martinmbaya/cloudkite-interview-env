@@ -59,3 +59,7 @@ steps:
     volumes:
       - name: "ssh"
         path: /root/.ssh
+availableSecrets:
+  secretManager:
+    - versionName: projects/cloudkite-interviews-martin/secrets/github_secret/versions/latest
+      env: "SSH_KEY"
