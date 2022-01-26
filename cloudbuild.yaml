@@ -10,6 +10,31 @@ steps:
       - "CLOUDSDK_COMPUTE_REGION=europe-west3"
       - "CLOUDSDK_CONTAINER_CLUSTER=cloudkite-interview-cluster"
 
+  # Set up git with key and domain
+  - name: "gcr.io/cloud-builders/git"
+    id: Accessing GitHub secret
+    entrypoint: "bash"
+    args:
+      - "-c"
+      - |
+        ssh-keyscan -t rsa github.com > known_hosts.github
+    volumes:
+      - name: "ssh"
+        path: /root/.ssh
+  # Set up git with key and domain
+  - name: "gcr.io/cloud-builders/git"
+    secretEnv: ["SSH_KEY"]
+    id: Copying Github secret
+    entrypoint: "bash"
+    args:
+      - "-c"
+      - |
+        echo "$$SSH_KEY\n" >> /root/.ssh/id_rsa
+        chmod 400 /root/.ssh/id_rsa
+        cp known_hosts.github /root/.ssh/known_hosts
+    volumes:
+      - name: "ssh"
+        path: /root/.ssh
   # This step copies the applied manifest to the production branch
   # The COMMIT_SHA variable is automatically
   # replaced by Cloud Build.
@@ -31,3 +56,6 @@ steps:
         git remote set-url origin git@github.com:martinmbaya/cloudkite-interview-env.git && \
         # Push the changes back to Cloud Source Repository
         git push origin production
+    volumes:
+      - name: "ssh"
+        path: /root/.ssh
