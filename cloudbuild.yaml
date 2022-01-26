@@ -28,5 +28,6 @@ steps:
         # Commit the kubernetes.yaml file with a descriptive commit message
         git commit -m "Manifest from commit $COMMIT_SHA
         $(git log --format=%B -n 1 $COMMIT_SHA)" && \
+        git remote set-url origin git@github.com:martinmbaya/cloudkite-interview-env.git && \
         # Push the changes back to Cloud Source Repository
         git push origin production
