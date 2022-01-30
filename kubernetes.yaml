@@ -62,6 +62,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: cloudkite-gke-app-service
+  namespace: "cloudkite-gke-app-ns"
   labels:
     app: cloudkite-gke-app
 spec:
