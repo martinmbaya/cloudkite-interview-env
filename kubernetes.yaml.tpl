@@ -70,5 +70,5 @@ spec:
     tier: web
   ports:
   - protocol: "TCP"
-      port: 8080
-      targetPort: 8080
+    port: 8080
+    targetPort: 8080
