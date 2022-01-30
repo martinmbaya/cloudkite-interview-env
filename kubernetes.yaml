@@ -60,7 +60,8 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: cloudkite-gke-app
+  name: "cloudkite-gke-app-ingress"
+  namespace: "cloudkite-gke-app-ns"
   annotations:
     kubernetes.io/ingress.global-static-ip-name: martin-interview-ip
   labels:
