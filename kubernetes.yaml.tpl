@@ -42,21 +42,14 @@ spec:
         name: "cpu"
         targetAverageUtilization: 80
 ---
-apiVersion: networking.k8s.io/v1
-kind: Ingress
+apiVersion: networking.gke.io/v1
+kind: ManagedCertificate
 metadata:
-  name: "cloudkite-gke-app"
-  namespace: "cloudkite-gke-app-ns"
-  annotations:
-    kubernetes.io/ingress.global-static-ip-name: martin-interview-ip
-  labels:
-    app: cloudkite-gke-app
+  name: cloudkite-gke-app-cert
 spec:
-  defaultBackend:
-    service:
-      name: cloudkite-gke-app-service
-      port:
-        number: 8080
+  domains:
+    - mbayamartin.com
+    - cloudkite.mbayamartin.com
 ---
 apiVersion: v1
 kind: Service
@@ -70,7 +63,24 @@ spec:
   selector:
     app: cloudkite-gke-app
   ports:
-  - protocol: "TCP"
-    port: 8080
-    targetPort: 8080
-
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: "cloudkite-gke-app-ingress"
+  namespace: "cloudkite-gke-app-ns"
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: martin-interview-ip
+    networking.gke.io/managed-certificates: cloudkite-gke-app-cert
+    kubernetes.io/ingress.class: "gce"
+  labels:
+    app: cloudkite-gke-app
+spec:
+  defaultBackend:
+    service:
+      name: cloudkite-gke-app-service
+      port:
+        number: 8080
