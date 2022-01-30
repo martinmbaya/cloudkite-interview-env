@@ -42,21 +42,6 @@ spec:
         name: "cpu"
         targetAverageUtilization: 80
 ---
-apiVersion: v1
-kind: Service
-metadata:
-  name: cloudkite-gke-app-service
-  labels:
-    app: cloudkite-gke-app
-spec:
-  type: NodePort
-  selector:
-    app: cloudkite-gke-app
-  ports:
-  - protocol: "TCP"
-    port: 8080
-    targetPort: 8080
----
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -72,3 +57,19 @@ spec:
       name: cloudkite-gke-app-service
       port:
         number: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cloudkite-gke-app-service
+  labels:
+    app: cloudkite-gke-app
+spec:
+  type: NodePort
+  selector:
+    app: cloudkite-gke-app
+  ports:
+  - protocol: "TCP"
+    port: 8080
+    targetPort: 8080
+
