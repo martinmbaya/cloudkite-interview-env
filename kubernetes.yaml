@@ -58,4 +58,4 @@ spec:
   selector:
     app: "cloudkite-gke-app"
   type: "LoadBalancer"
-  loadBalancerIP: ""
+  loadBalancerIP: "34.107.7.187"
