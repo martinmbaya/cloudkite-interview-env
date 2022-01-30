@@ -42,20 +42,33 @@ spec:
         name: "cpu"
         targetAverageUtilization: 80
 ---
-apiVersion: "v1"
-kind: "Service"
+apiVersion: networking.k8s.io/v1
+kind: Ingress
 metadata:
-  name: "cloudkite-gke-app-service"
-  namespace: "cloudkite-gke-app-ns"
+  name: cloudkite-gke-app
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: martin-interview-ip
   labels:
-    app: "cloudkite-gke-app"
-    app.kubernetes.io/managed-by: "gcp-cloud-build-deploy"
+    app: cloudkite-gke-app
 spec:
+  defaultBackend:
+    service:
+      name: cloudkite-gke-app-service
+      port:
+        number: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cloudkite-gke-app-service
+  labels:
+    app: cloudkite-gke-app
+spec:
+  type: NodePort
+  selector:
+    app: cloudkite-gke-app
+    tier: web
   ports:
-    - protocol: "TCP"
+  - protocol: "TCP"
       port: 8080
       targetPort: 8080
-  selector:
-    app: "cloudkite-gke-app"
-  type: "LoadBalancer"
-  loadBalancerIP: ""
