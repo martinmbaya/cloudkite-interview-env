@@ -90,13 +90,3 @@ spec:
       name: cloudkite-gke-app-service
       port:
         number: 8080
-  rules:
-    - http:
-        paths:
-          - path: /
-            pathType: ImplementationSpecific
-            backend:
-              service:
-                name: cloudkite-gke-app-service
-                port:
-                  number: 8080
