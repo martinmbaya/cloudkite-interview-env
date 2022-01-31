@@ -48,7 +48,6 @@ metadata:
   name: cloudkite-gke-app-cert
 spec:
   domains:
-    - mbayamartin.com
     - cloudkite.mbayamartin.com
 ---
 apiVersion: v1
@@ -84,3 +83,13 @@ spec:
       name: cloudkite-gke-app-service
       port:
         number: 8080
+  rules:
+    - http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: cloudkite-gke-app-service
+                port:
+                  number: 8080
