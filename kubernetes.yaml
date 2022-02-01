@@ -8,7 +8,7 @@ metadata:
     app: cloudkite-gke-app
     app.kubernetes.io/instance: cloudkite-interview-deploy
 spec:
-  replicas: 3
+  replicas: 5
   selector:
     matchLabels:
       app: cloudkite-gke-app
