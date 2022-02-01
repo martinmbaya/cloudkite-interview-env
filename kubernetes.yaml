@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: cloudkite-martin-image
-          image: gcr.io/cloudkite-interviews-martin/cloudkite-martin-image:b5052a5
+          image: gcr.io/cloudkite-interviews-martin/cloudkite-martin-image:4e8fb4b
           ports:
             - containerPort: 8080
 ---
