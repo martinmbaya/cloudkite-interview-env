@@ -8,7 +8,7 @@ metadata:
     app: cloudkite-gke-app
     app.kubernetes.io/instance: cloudkite-interview-deploy
 spec:
-  replicas: 5
+  replicas: 3
   selector:
     matchLabels:
       app: cloudkite-gke-app
@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: cloudkite-martin-image
-          image: gcr.io/cloudkite-interviews-martin/cloudkite-martin-image:4e8fb4b
+          image: gcr.io/cloudkite-interviews-martin/cloudkite-martin-image:a5734d2
           ports:
             - containerPort: 8080
 ---
